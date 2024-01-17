@@ -6,13 +6,16 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack serve --open --config webpack.dev.js",
-    "build": "webpack --config webpack.prod.js"
+    "build": "webpack --config webpack.prod.js",
+    "deploy": "git subtree push --prefix dist origin gh-pages"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "css-loader": "^6.9.0",
+    "favicons": "^7.1.5",
+    "favicons-webpack-plugin": "^6.0.1",
     "html-webpack-plugin": "^5.6.0",
     "style-loader": "^3.3.4",
     "webpack": "^5.89.0",

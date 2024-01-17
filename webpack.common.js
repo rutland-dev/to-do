@@ -1,10 +1,12 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+// const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 module.exports = {
     mode: 'development',
     entry: {
-        index: './src/index.js'
+        index: './src/index.js',
+        DOM: './src/DOM.js'
     },
     output: {
         filename: '[name].bundle.js',
@@ -17,6 +19,10 @@ module.exports = {
                 test: /\.css$/i,
                 use: ['style-loader', 'css-loader'],
             },
+            {
+                test: /\.ico$/i,
+                type: 'asset/resource',
+            },
         ],
     },
     plugins: [
@@ -25,5 +31,6 @@ module.exports = {
             filename: 'index.html',
             inject: 'body'
         }),
+        // new FaviconsWebpackPlugin('./src/favicon.ico'),
     ],
 };
