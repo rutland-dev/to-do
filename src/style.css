@@ -90,10 +90,42 @@ body {
 #menu-div {
     background-color: var(--priority-low-color);
     opacity: .9;
-    height: 15%;
-    display: flex;
-    align-items: space-around;
+    /* height: 15%; */
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     font-size: 1.3rem;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25), 0 2px 8px rgba(0, 0, 0, 0.25), inset 0px 0px 0px 1px rgba(255, 255, 255, 0.1);
+    padding: 2% 0;
+}
+
+#project-menu-div {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+    text-align: center;
+}
+
+#create-new-buttons-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#view-by-date-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
+}
+
+#view-by-date-buttons-div {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-around;
+    align-items: center;
 }
 
 #menu-div button {
@@ -106,19 +138,11 @@ body {
     color: black;
 }
 
-#project-menu-div {
-    height: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 55%;
-}
-
 #project-menu-list-form {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    gap: 10px;
+    gap: 40%;
+    height: 100%;
     width: fit-content;
 }
 
@@ -133,29 +157,11 @@ select option {
     background-color: var(--priority-low-color);
 }
 
-#view-by-date-div {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-}
-
-#view-by-date-buttons-div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    height: 100%;
-}
-
-#view-by-date-buttons-div button {
-    height: 1.6rem;
-    width: 6rem;
-}
-
 #task-view-div {
     background-color: var(--secondary-color);
     height: 100%;
     color: var(--main-bg-color);
+    padding: 2%;
 }
 
 #task-view-title-div {

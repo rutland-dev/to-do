@@ -43,6 +43,9 @@ function buildMenu() {
     const menuDiv = document.createElement('div');
     menuDiv.setAttribute('id', 'menu-div');
 
+    const createNewButtonsDiv = buildNewButtons();
+    menuDiv.appendChild(createNewButtonsDiv);
+
     const projectMenuDiv = buildProjectMenu();
     menuDiv.appendChild(projectMenuDiv);
     
@@ -61,16 +64,10 @@ function buildProjectMenu() {
     projectMenuListDiv.setAttribute('id', 'project-menu-list-div');
 
     const projectMenuListForm = buildProjectList();
-
-    const createNewProjectBtnDiv = document.createElement('div');
-    createNewProjectBtnDiv.setAttribute('id', 'create-new-project-button-div');
     
     const createNewProjectBtn = buildNewProjectButton();
 
     projectMenuDiv.appendChild(projectMenuListForm);
-    
-    createNewProjectBtnDiv.appendChild(createNewProjectBtn);
-    projectMenuDiv.appendChild(createNewProjectBtnDiv);
 
     return projectMenuDiv;
 };
@@ -83,7 +80,7 @@ function buildProjectList() {
     const projectMenuListLabel = document.createElement('label');
     projectMenuListLabel.setAttribute('id', 'project-menu-list-label');
     projectMenuListLabel.setAttribute('for', 'project-menu-list');
-    projectMenuListLabel.textContent = "Project"
+    projectMenuListLabel.textContent = "View By Project"
 
     const projectMenuListSelect = document.createElement('select');
     projectMenuListSelect.setAttribute('id', 'project-menu-list-select');
@@ -108,13 +105,38 @@ function buildProjectListOptions(projectName, projectMenuListSelect) {
 };
 
 //****************************************************************************** */
+function buildNewButtons() {
+    const createNewButtonsDiv = document.createElement('div');
+    createNewButtonsDiv.setAttribute('id', 'create-new-buttons-div');
+
+    const createNewProjectBtn = buildNewProjectButton();
+    createNewButtonsDiv.appendChild(createNewProjectBtn);
+
+    const createNewTaskBtn = buildNewTaskButton();
+    createNewButtonsDiv.appendChild(createNewTaskBtn);
+
+    return createNewButtonsDiv;
+};
+
+//****************************************************************************** */
 function buildNewProjectButton() {
     const createNewProjectBtn = document.createElement('button');
     createNewProjectBtn.setAttribute('type', 'button');
     createNewProjectBtn.setAttribute('id', 'create-new-project-button');
     createNewProjectBtn.textContent = "New Project";
+
     return createNewProjectBtn;
 };
+
+//****************************************************************************** */
+function buildNewTaskButton() {
+    const createNewTaskBtn = document.createElement('button');
+    createNewTaskBtn.setAttribute('type', 'button');
+    createNewTaskBtn.setAttribute('id', 'create-new-task-button');
+    createNewTaskBtn.textContent = "New Task";
+
+    return createNewTaskBtn;
+}
 
 //****************************************************************************** */
 function buildViewByDateBtns() {
