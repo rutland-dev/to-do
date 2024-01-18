@@ -90,7 +90,6 @@ body {
 #menu-div {
     background-color: var(--priority-low-color);
     opacity: .9;
-    /* height: 15%; */
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     font-size: 1.3rem;
@@ -167,4 +166,39 @@ select option {
 #task-view-title-div {
     text-align: center;
     font-size: 2rem;
+}
+
+.task {
+    display: flex;
+    gap: 3%;
+    margin: 2% 0;
+    font-size: 1.2rem;
+}
+
+input[type="checkbox"] {
+    appearance: none;
+    background-color: #fff;
+    margin: 0;
+    display: grid;
+    place-content: center;
+    font: inherit;
+    color: currentColor;
+    height: 1.2rem;
+    width: 1.2rem;
+    border-radius: .3rem;
+}
+
+input[type="checkbox"]::before {
+    content: "";
+    width: 1em;
+    height: 1em;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em var(--priority-low-color);
+    transform-origin: bottom left;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+input[type="checkbox"]:checked::before {
+    transform: scale(1);
 }

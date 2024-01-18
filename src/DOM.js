@@ -1,5 +1,5 @@
 import './style.css';
-import { projectList, buildDisplayedTaskList } from './index.js';
+import { projectList, buildDisplayedTaskList, changeTaskStatus } from './index.js';
 
 //****************************************************************************** */
 function buildUI() {
@@ -202,9 +202,27 @@ function displayTasks(project) {
     const displayedTaskList = getDisplayedTaskList(project);
     displayedTaskList.forEach(task => {
         const createdTask = document.createElement('li');
-        createdTask.setAttribute('id', task.name);
+        createdTask.setAttribute('id', `${task.name}-li`);
         createdTask.classList.add('task');
-        createdTask.textContent = task.name;
+
+        const checkBox = document.createElement('input');
+        checkBox.type = "checkbox";
+        checkBox.value = task.name;
+        checkBox.setAttribute('id', `${task.name}-input`)
+        checkBox.addEventListener('click', () => {
+            changeTaskStatus(task.name)
+        });
+        const label = document.createElement('label');
+        label.setAttribute('id', `${task.name}-label`);
+        label.textContent = task.name;
+
+        createdTask.appendChild(checkBox);
+        createdTask.appendChild(label);
+
+        if (task.complete === true) {
+            checkBox.setAttribute('checked', 'checked');
+        }
+        
         displayedTasksUL.appendChild(createdTask);
     });
 

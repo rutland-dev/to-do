@@ -45,7 +45,7 @@ let taskList = [
         project: "Groceries",
         priority: "med",
         notes: "Write notes here...",
-        complete: false,
+        complete: true,
     },
     {
         name: "Cheese",
@@ -84,8 +84,22 @@ function buildDisplayedTaskList(displayedProject) {
     return displayedTaskList;
 };
 
+function changeTaskStatus(task) {
+    taskList.forEach(obj => {
+        if (obj.name === task) {
+            if (obj.complete === false) {
+                obj.complete = true;
+            } else {
+                obj.complete = false;
+            }
+        }
+    });
+    buildUI();
+};
+
 export {
     projectList,
-    buildDisplayedTaskList
+    buildDisplayedTaskList,
+    changeTaskStatus
 }
 //***********LOOK INTO CSS MINIFYING WHEN YOU'RE DONE */
