@@ -61,6 +61,10 @@ table {
     padding: 0;
 }
 
+button {
+    color: black;
+}
+
 body {
     background-color: var(--main-bg-color);
     height: 100vh;
