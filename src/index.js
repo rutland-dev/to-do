@@ -62,7 +62,7 @@ let projectList = ["Default"];
 
 document.addEventListener('DOMContentLoaded', function() {
     buildProjectList();
-    buildUI();
+    buildUI("All");
 })
 
 function buildProjectList() {
@@ -78,9 +78,13 @@ function buildDisplayedTaskList(displayedProject) {
     taskList.forEach(task => {
         if (displayedProject === "All") {
             displayedTaskList.push(task);
-        };
+        } else {
+            if (task.project === displayedProject) {
+                displayedTaskList.push(task);
+            }
+        }
     });
-    
+
     return displayedTaskList;
 };
 

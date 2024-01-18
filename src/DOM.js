@@ -2,7 +2,7 @@ import './style.css';
 import { projectList, buildDisplayedTaskList, changeTaskStatus } from './index.js';
 
 //****************************************************************************** */
-function buildUI() {
+function buildUI(projectName) {
     clearBody();
 
     const headerDiv = buildHeader();
@@ -11,7 +11,7 @@ function buildUI() {
     const menuDiv = buildMenu();
     document.body.appendChild(menuDiv);
 
-    const taskViewDiv = buildTaskView();
+    const taskViewDiv = buildTaskView(projectName);
     document.body.appendChild(taskViewDiv);
 
     //build footer
@@ -85,10 +85,18 @@ function buildProjectList() {
     const projectMenuListSelect = document.createElement('select');
     projectMenuListSelect.setAttribute('id', 'project-menu-list-select');
     projectMenuListSelect.setAttribute('name', 'project-menu-list-select');
+    projectMenuListSelect.addEventListener('change', () => {
+        buildUI(projectMenuListSelect.value);
+    })
+
+    const AllOption = document.createElement('option');
+    AllOption.setAttribute('value', "All");
+    AllOption.textContent = "All";
+    projectMenuListSelect.appendChild(AllOption);
 
     projectList.forEach(projectName => {
-        buildProjectListOptions(projectName, projectMenuListSelect);
-        console.log(`option built: ${projectName}`);
+        const projectListOption = buildProjectListOptions(projectName, projectMenuListSelect);
+        projectMenuListSelect.appendChild(projectListOption);
     });
     projectMenuListForm.appendChild(projectMenuListLabel);
     projectMenuListForm.appendChild(projectMenuListSelect);
@@ -97,11 +105,12 @@ function buildProjectList() {
 };
 
 //****************************************************************************** */
-function buildProjectListOptions(projectName, projectMenuListSelect) {
+function buildProjectListOptions(projectName) {
     const projectListOption = document.createElement('option');
     projectListOption.setAttribute('value', projectName);
     projectListOption.textContent = projectName;
-    projectMenuListSelect.appendChild(projectListOption);
+
+    return projectListOption;
 };
 
 //****************************************************************************** */
@@ -171,7 +180,7 @@ function buildViewByDateBtns() {
 }
 
 //****************************************************************************** */
-function buildTaskView() {
+function buildTaskView(projectName) {
     const taskViewDiv = document.createElement('div');
     taskViewDiv.setAttribute('id', 'task-view-div');
 
@@ -184,14 +193,14 @@ function buildTaskView() {
     taskViewTitleText.textContent = "Tasks";
     taskViewTitleDiv.appendChild(taskViewTitleText);
 
-    const displayedTasksDiv = displayTasks("All");
+    const displayedTasksDiv = displayTasks(projectName);
     taskViewDiv.appendChild(displayedTasksDiv);
     
     return taskViewDiv;
 }
 
 //****************************************************************************** */
-function displayTasks(project) {
+function displayTasks(projectName) {
     const displayedTasksDiv = document.createElement('div');
     displayedTasksDiv.setAttribute('id', 'displayed-task-div');
 
@@ -199,7 +208,7 @@ function displayTasks(project) {
     displayedTasksUL.setAttribute('id', 'displayed-tasks-ul');
     displayedTasksDiv.appendChild(displayedTasksUL);
 
-    const displayedTaskList = getDisplayedTaskList(project);
+    const displayedTaskList = getDisplayedTaskList(projectName);
     displayedTaskList.forEach(task => {
         const createdTask = document.createElement('li');
         createdTask.setAttribute('id', `${task.name}-li`);
@@ -230,8 +239,8 @@ function displayTasks(project) {
 };
 
 //****************************************************************************** */
-function getDisplayedTaskList(project) {
-    const displayedTaskList = buildDisplayedTaskList(project);
+function getDisplayedTaskList(projectName) {
+    const displayedTaskList = buildDisplayedTaskList(projectName);
     return displayedTaskList;
 }
 
