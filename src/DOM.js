@@ -86,8 +86,10 @@ function buildProjectList() {
     projectMenuListSelect.setAttribute('id', 'project-menu-list-select');
     projectMenuListSelect.setAttribute('name', 'project-menu-list-select');
     projectMenuListSelect.addEventListener('change', () => {
-        buildUI(projectMenuListSelect.value);
-    })
+        document.querySelector('#task-view-div').remove();
+        const taskViewDiv = buildTaskView(projectMenuListSelect.value);
+        document.body.appendChild(taskViewDiv);
+    });
 
     const AllOption = document.createElement('option');
     AllOption.setAttribute('value', "All");
@@ -241,6 +243,7 @@ function displayTasks(projectName) {
 //****************************************************************************** */
 function getDisplayedTaskList(projectName) {
     const displayedTaskList = buildDisplayedTaskList(projectName);
+
     return displayedTaskList;
 }
 
