@@ -62,8 +62,7 @@ table {
 }
 
 button {
-    color: black;
-    -webkit-appearance: none;
+    color: var(--main-bg-color) !important;
 }
 
 body {
@@ -103,6 +102,7 @@ body {
     border-radius: .4rem;
     border: none;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    color: black;
 }
 
 #project-menu-div {
@@ -149,4 +149,15 @@ select option {
 #view-by-date-buttons-div button {
     height: 1.6rem;
     width: 6rem;
+}
+
+#task-view-div {
+    background-color: var(--secondary-color);
+    height: 100%;
+}
+
+#task-view-title-div {
+    text-align: center;
+    font-size: 2rem;
+    color: var(--main-bg-color);
 }

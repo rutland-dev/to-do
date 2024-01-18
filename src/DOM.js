@@ -4,9 +4,15 @@ import { projectList } from './index.js';
 //****************************************************************************** */
 function buildUI() {
     clearBody();
-    buildHeader();
-    buildMenu();
-    //build task view area
+
+    const headerDiv = buildHeader();
+    document.body.appendChild(headerDiv);
+
+    const menuDiv = buildMenu();
+    document.body.appendChild(menuDiv);
+
+    const taskViewDiv = buildTaskView();
+    document.body.appendChild(taskViewDiv);
     //build footer
 };
 
@@ -27,20 +33,26 @@ function buildHeader() {
     headerText.textContent = "Task Master";
 
     headerDiv.appendChild(headerText);
-    document.body.appendChild(headerDiv);
+    
+    return headerDiv;
 };
 
 //****************************************************************************** */
 function buildMenu() {
     const menuDiv = document.createElement('div');
     menuDiv.setAttribute('id', 'menu-div');
-    buildProjectMenu(menuDiv);
+
+    const projectMenuDiv = buildProjectMenu();
+    menuDiv.appendChild(projectMenuDiv);
+    
     const viewByDateDiv = buildViewByDateBtns();
     menuDiv.appendChild(viewByDateDiv);
+
+    return menuDiv;
 };
 
 //****************************************************************************** */
-function buildProjectMenu(menuDiv) {
+function buildProjectMenu() {
     const projectMenuDiv = document.createElement('div');
     projectMenuDiv.setAttribute('id', 'project-menu-div');
 
@@ -59,9 +71,9 @@ function buildProjectMenu(menuDiv) {
     createNewProjectBtnDiv.appendChild(createNewProjectBtn);
     projectMenuDiv.appendChild(createNewProjectBtnDiv);
 
-    menuDiv.appendChild(projectMenuDiv);
+    return projectMenuDiv;
 
-    document.body.appendChild(menuDiv);
+    
 };
 
 //****************************************************************************** */
@@ -134,6 +146,23 @@ function buildViewByDateBtns() {
     viewByDateBtnsDiv.appendChild(viewByDateBtnWeek);
 
     return viewByDateDiv;
+}
+
+//****************************************************************************** */
+function buildTaskView() {
+    const taskViewDiv = document.createElement('div');
+    taskViewDiv.setAttribute('id', 'task-view-div');
+
+    const taskViewTitleDiv = document.createElement('div');
+    taskViewTitleDiv.setAttribute('id', 'task-view-title-div');
+    taskViewDiv.appendChild(taskViewTitleDiv);
+
+    const taskViewTitleText = document.createElement('h2');
+    taskViewTitleText.setAttribute('id', 'task-view-title-text');
+    taskViewTitleText.textContent = "Tasks";
+    taskViewTitleDiv.appendChild(taskViewTitleText);
+    
+    return taskViewDiv;
 }
 
 //****************************************************************************** */
