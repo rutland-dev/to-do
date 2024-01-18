@@ -18,7 +18,7 @@ body {
 
 #header-div {
     background-color: var(--priority-low-color);
-    height: 15%;
+    height: 10%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -34,10 +34,10 @@ body {
 #menu-div {
     background-color: var(--priority-low-color);
     opacity: .9;
-    height: 10%;
+    height: 15%;
     display: flex;
-    align-items: center;
-    font-size: 1.6rem;
+    align-items: space-around;
+    font-size: 1.3rem;
 }
 
 #menu-div button {
@@ -69,5 +69,28 @@ body {
     background-color: rgba(255, 255, 255, .2);
     border: none;
     border-radius: .4rem;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
+}
+
+select option {
+    background-color: var(--priority-low-color);
+}
+
+#view-by-date-div {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+#view-by-date-buttons-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 100%;
+}
+
+#view-by-date-buttons-div button {
+    height: 1.6rem;
+    width: 6rem;
 }
