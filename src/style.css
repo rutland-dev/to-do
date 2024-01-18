@@ -170,9 +170,14 @@ select option {
 
 .task {
     display: flex;
+    align-items: center;
     gap: 3%;
-    margin: 2% 0;
     font-size: 1.2rem;
+    height: 2rem;
+}
+
+.task:hover {
+    background-color: rgba(255, 255, 255, .3);
 }
 
 input[type="checkbox"] {
@@ -201,4 +206,8 @@ input[type="checkbox"]::before {
 
 input[type="checkbox"]:checked::before {
     transform: scale(1);
+}
+
+#menu-div button:hover {
+    background-color: rgba(255, 255, 255, .5);
 }

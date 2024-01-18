@@ -98,7 +98,6 @@ function changeTaskStatus(task) {
             }
         }
     });
-    buildUI();
 };
 
 export {

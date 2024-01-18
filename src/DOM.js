@@ -222,6 +222,8 @@ function displayTasks(projectName) {
         checkBox.setAttribute('id', `${task.name}-input`)
         checkBox.addEventListener('click', () => {
             changeTaskStatus(task.name)
+            document.querySelector('#task-view-div').remove();
+            document.body.appendChild(buildTaskView(projectName));
         });
         const label = document.createElement('label');
         label.setAttribute('id', `${task.name}-label`);
