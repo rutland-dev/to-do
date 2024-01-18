@@ -63,6 +63,7 @@ table {
 
 button {
     color: black;
+    -webkit-appearance: none;
 }
 
 body {
