@@ -38,7 +38,7 @@ let taskList = [
         project: "Groceries",
         complete: false,
     },
-]
+];
 
 let projectList = ["Default"];
 
@@ -55,7 +55,19 @@ function buildProjectList() {
     });
 }
 
+function buildDisplayedTaskList(displayedProject) {
+    let displayedTaskList = [];
+    taskList.forEach(task => {
+        if (displayedProject === "All") {
+            displayedTaskList.push(task);
+        };
+    });
+    
+    return displayedTaskList;
+};
+
 export {
-    projectList
+    projectList,
+    buildDisplayedTaskList
 }
 //***********LOOK INTO CSS MINIFYING WHEN YOU'RE DONE */

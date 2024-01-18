@@ -1,5 +1,5 @@
 import './style.css';
-import { projectList } from './index.js';
+import { projectList, buildDisplayedTaskList } from './index.js';
 
 //****************************************************************************** */
 function buildUI() {
@@ -13,6 +13,7 @@ function buildUI() {
 
     const taskViewDiv = buildTaskView();
     document.body.appendChild(taskViewDiv);
+
     //build footer
 };
 
@@ -72,8 +73,6 @@ function buildProjectMenu() {
     projectMenuDiv.appendChild(createNewProjectBtnDiv);
 
     return projectMenuDiv;
-
-    
 };
 
 //****************************************************************************** */
@@ -96,6 +95,7 @@ function buildProjectList() {
     });
     projectMenuListForm.appendChild(projectMenuListLabel);
     projectMenuListForm.appendChild(projectMenuListSelect);
+
     return projectMenuListForm;
 };
 
@@ -161,8 +161,38 @@ function buildTaskView() {
     taskViewTitleText.setAttribute('id', 'task-view-title-text');
     taskViewTitleText.textContent = "Tasks";
     taskViewTitleDiv.appendChild(taskViewTitleText);
+
+    const displayedTasksDiv = displayTasks("All");
+    taskViewDiv.appendChild(displayedTasksDiv);
     
     return taskViewDiv;
+}
+
+//****************************************************************************** */
+function displayTasks(project) {
+    const displayedTasksDiv = document.createElement('div');
+    displayedTasksDiv.setAttribute('id', 'displayed-task-div');
+
+    const displayedTasksUL = document.createElement('ul');
+    displayedTasksUL.setAttribute('id', 'displayed-tasks-ul');
+    displayedTasksDiv.appendChild(displayedTasksUL);
+
+    const displayedTaskList = getDisplayedTaskList(project);
+    displayedTaskList.forEach(task => {
+        const createdTask = document.createElement('li');
+        createdTask.setAttribute('id', task.name);
+        createdTask.classList.add('task');
+        createdTask.textContent = task.name;
+        displayedTasksUL.appendChild(createdTask);
+    });
+
+    return displayedTasksDiv;
+};
+
+//****************************************************************************** */
+function getDisplayedTaskList(project) {
+    const displayedTaskList = buildDisplayedTaskList(project);
+    return displayedTaskList;
 }
 
 //****************************************************************************** */

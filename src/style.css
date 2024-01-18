@@ -59,9 +59,10 @@ table {
 * {
     margin: 0;
     padding: 0;
+    color: var(--main-bg-color);
 }
 
-button {
+button, select, option {
     color: var(--main-bg-color) !important;
 }
 
@@ -154,10 +155,10 @@ select option {
 #task-view-div {
     background-color: var(--secondary-color);
     height: 100%;
+    color: var(--main-bg-color);
 }
 
 #task-view-title-div {
     text-align: center;
     font-size: 2rem;
-    color: var(--main-bg-color);
 }
