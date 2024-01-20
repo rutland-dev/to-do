@@ -1,13 +1,14 @@
 import './style.css';
 import { buildUI } from './DOM.js';
-const { differenceInCalendarDays } = require('date-fns');
+const { differenceInCalendarDays, format } = require('date-fns');
 
 //****************************************************************************** */
 let taskList = [
     {
         name: "Beer",
         description: "Buy this at the store",
-        due: new Date(2024, 1, 20),
+        due: new Date(2024, 0, 20),
+        formattedDue: format(new Date(2024, 0, 23), "MM-dd-yyyy"),
         project: "Booze",
         priority: "low",
         notes: "Write notes here...",
@@ -16,7 +17,8 @@ let taskList = [
     {
         name: "Cider",
         description: "Buy this at the store",
-        due: new Date("02/01/2024"),
+        due: new Date(2024, 1, 1),
+        formattedDue: format(new Date(2024, 1, 1), "MM-dd-yyyy"),
         project: "Booze",
         priority: "low",
         notes: "Write notes here...",
@@ -25,7 +27,8 @@ let taskList = [
     {
         name: "Whiskey",
         description: "Buy this at the store",
-        due: new Date("2024-1-17"),
+        due: new Date(2024-0-17),
+        formattedDue: format(new Date(2024, 0, 21), "MM-dd-yyyy"),
         project: "Booze",
         priority: "medium",
         notes: "Write notes here...",
@@ -34,7 +37,8 @@ let taskList = [
     {
         name: "Bread",
         description: "Buy this at the store",
-        due: new Date("2024-2-1"),
+        due: new Date(2024-1-1),
+        formattedDue: format(new Date(2024, 0, 21), "MM-dd-yyyy"),
         project: "Groceries",
         priority: "low",
         notes: "Write notes here...",
@@ -43,7 +47,8 @@ let taskList = [
     {
         name: "Milk",
         description: "Buy this at the store",
-        due: new Date("2024-1-17"),
+        due: new Date(2024-0-17),
+        formattedDue: format(new Date(2024, 0, 21), "MM-dd-yyyy"),
         project: "Groceries",
         priority: "medium",
         notes: "Write notes here...",
@@ -52,7 +57,8 @@ let taskList = [
     {
         name: "Cheese",
         description: "Buy this at the store",
-        due: new Date("2024-2-1"),
+        due: new Date(2024-1-1),
+        formattedDue: format(new Date(2024, 1, 1), "MM-dd-yyyy"),
         project: "Groceries",
         priority: "high",
         notes: "Write notes here...",

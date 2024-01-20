@@ -427,8 +427,8 @@ function displayTasks(projectName) {
         label.textContent = task.name;
 
         const createdTaskDueDiv = document.createElement('div');
-        createdTaskDueDiv.setAttribute('id', `${task.name}-due`);
-        createdTaskDueDiv.textContent = task.due;
+        createdTaskDueDiv.classList.add('created-task-due-div');
+        createdTaskDueDiv.textContent = `- ${task.formattedDue}`;
 
         createdTask.appendChild(checkBox);
         createdTask.appendChild(label);
