@@ -409,6 +409,9 @@ function displayTasks(projectName) {
         const createdTask = document.createElement('li');
         createdTask.setAttribute('id', `${task.name}-li`);
         createdTask.classList.add('task');
+        createdTask.addEventListener('click', () => {
+            expandTask(task);
+        });
 
         const checkBox = document.createElement('input');
         checkBox.type = "checkbox";
@@ -423,8 +426,13 @@ function displayTasks(projectName) {
         label.setAttribute('id', `${task.name}-label`);
         label.textContent = task.name;
 
+        const createdTaskDueDiv = document.createElement('div');
+        createdTaskDueDiv.setAttribute('id', `${task.name}-due`);
+        createdTaskDueDiv.textContent = task.due;
+
         createdTask.appendChild(checkBox);
         createdTask.appendChild(label);
+        createdTask.appendChild(createdTaskDueDiv);
 
         if (task.complete === true) {
             checkBox.setAttribute('checked', 'checked');
@@ -441,6 +449,10 @@ function getDisplayedTaskList(projectName) {
     const displayedTaskList = buildDisplayedTaskList(projectName);
 
     return displayedTaskList;
+}
+
+function expandTask(task) {
+    
 }
 
 //****************************************************************************** */

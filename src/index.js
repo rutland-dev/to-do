@@ -14,9 +14,9 @@ let taskList = [
         complete: false,
     },
     {
-        name: "Wine",
+        name: "Cider",
         description: "Buy this at the store",
-        due: new Date(2024-2-1),
+        due: new Date("02/01/2024"),
         project: "Booze",
         priority: "low",
         notes: "Write notes here...",
@@ -25,7 +25,7 @@ let taskList = [
     {
         name: "Whiskey",
         description: "Buy this at the store",
-        due: new Date(2024-1-17),
+        due: new Date("2024-1-17"),
         project: "Booze",
         priority: "medium",
         notes: "Write notes here...",
@@ -34,7 +34,7 @@ let taskList = [
     {
         name: "Bread",
         description: "Buy this at the store",
-        due: new Date(2024-2-1),
+        due: new Date("2024-2-1"),
         project: "Groceries",
         priority: "low",
         notes: "Write notes here...",
@@ -43,7 +43,7 @@ let taskList = [
     {
         name: "Milk",
         description: "Buy this at the store",
-        due: new Date(2024-1-17),
+        due: new Date("2024-1-17"),
         project: "Groceries",
         priority: "medium",
         notes: "Write notes here...",
@@ -52,7 +52,7 @@ let taskList = [
     {
         name: "Cheese",
         description: "Buy this at the store",
-        due: new Date(2024-2-1),
+        due: new Date("2024-2-1"),
         project: "Groceries",
         priority: "high",
         notes: "Write notes here...",
