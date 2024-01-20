@@ -1,11 +1,13 @@
 import './style.css';
 import { buildUI } from './DOM.js';
+const { differenceInCalendarDays } = require('date-fns');
 
+//****************************************************************************** */
 let taskList = [
     {
         name: "Beer",
         description: "Buy this at the store",
-        due: new Date(2024-2-1),
+        due: new Date(2024, 1, 20),
         project: "Booze",
         priority: "low",
         notes: "Write notes here...",
@@ -25,7 +27,7 @@ let taskList = [
         description: "Buy this at the store",
         due: new Date(2024-1-17),
         project: "Booze",
-        priority: "med",
+        priority: "medium",
         notes: "Write notes here...",
         complete: false,
     },
@@ -43,7 +45,7 @@ let taskList = [
         description: "Buy this at the store",
         due: new Date(2024-1-17),
         project: "Groceries",
-        priority: "med",
+        priority: "medium",
         notes: "Write notes here...",
         complete: true,
     },
@@ -58,21 +60,59 @@ let taskList = [
     },
 ];
 
+function createTask(name, description, due, project, priority, notes) {
+    const task = {};
+    task.name = name;
+    task.description = description;
+    task.due = due;
+    task.project = project;
+    task.priority = priority;
+    task.notes = notes;
+    task.complete = false;
+
+    taskList.push(task);
+};
+
+//****************************************************************************** */
+function getComparedDate(dueDate) {
+    const result = differenceInCalendarDays(
+        dueDate,
+        getCurrentDate()
+    );
+
+    return result;
+};
+
+//****************************************************************************** */
+function getCurrentDate() {
+    const today = new Date();
+    const day = today.getDate();
+    const month = today.getMonth() + 1;
+    const year = today.getFullYear();
+    const formattedDate = new Date(year, month, day);
+
+    return formattedDate;
+};
+
+//****************************************************************************** */
 let projectList = ["Default"];
 
+//****************************************************************************** */
 document.addEventListener('DOMContentLoaded', function() {
     buildProjectList();
     buildUI("All");
-})
+});
 
+//****************************************************************************** */
 function buildProjectList() {
     taskList.forEach(task => {
         if (!projectList.includes(task.project)) {
             projectList.push(task.project);
         }
     });
-}
+};
 
+//****************************************************************************** */
 function buildDisplayedTaskList(displayedProject) {
     let displayedTaskList = [];
     taskList.forEach(task => {
@@ -88,6 +128,7 @@ function buildDisplayedTaskList(displayedProject) {
     return displayedTaskList;
 };
 
+//****************************************************************************** */
 function changeTaskStatus(task) {
     taskList.forEach(obj => {
         if (obj.name === task) {
@@ -100,6 +141,7 @@ function changeTaskStatus(task) {
     });
 };
 
+//****************************************************************************** */
 export {
     projectList,
     buildDisplayedTaskList,
