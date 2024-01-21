@@ -66,6 +66,7 @@ let taskList = [
     },
 ];
 
+//****************************************************************************** */
 function createTask(name, description, due, project, priority, notes) {
     const task = {};
     const parsedDate = parseISO(due, 'yyyy, MM, dd', new Date());
@@ -106,6 +107,11 @@ function getCurrentDate() {
 
 //****************************************************************************** */
 let projectList = ["Default"];
+
+//****************************************************************************** */
+function createProject(projectName) {
+    projectList.push(projectName);
+};
 
 //****************************************************************************** */
 document.addEventListener('DOMContentLoaded', function() {
@@ -156,6 +162,7 @@ export {
     projectList,
     buildDisplayedTaskList,
     changeTaskStatus,
-    createTask
+    createTask,
+    createProject
 }
 //***********LOOK INTO CSS MINIFYING WHEN YOU'RE DONE */

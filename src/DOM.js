@@ -1,5 +1,5 @@
 import './style.css';
-import { projectList, buildDisplayedTaskList, changeTaskStatus, createTask } from './index.js';
+import { projectList, buildDisplayedTaskList, changeTaskStatus, createTask, createProject } from './index.js';
 
 //****************************************************************************** */
 function buildUI(projectName) {
@@ -10,6 +10,9 @@ function buildUI(projectName) {
 
     const menuDiv = buildMenu();
     document.body.appendChild(menuDiv);
+
+    const newProjectFormDiv = buildNewProjectForm();
+    document.body.appendChild(newProjectFormDiv);
 
     const newTaskFormDiv = buildNewTaskForm();
     document.body.appendChild(newTaskFormDiv);
@@ -135,9 +138,61 @@ function buildNewProjectButton() {
     createNewProjectButton.setAttribute('type', 'button');
     createNewProjectButton.setAttribute('id', 'create-new-project-button');
     createNewProjectButton.textContent = "New Project";
+    createNewProjectButton.addEventListener('click', () => {
+        document.querySelector('#new-project-form-div').setAttribute('style', 'display: flex');
+        document.querySelector('#new-project-form-input').focus();
+    })
 
     return createNewProjectButton;
 };
+
+//****************************************************************************** */
+function buildNewProjectForm() {
+    const newProjectFormDiv = document.createElement('div');
+    newProjectFormDiv.setAttribute('id', 'new-project-form-div');
+
+    const newProjectForm = document.createElement('form');
+    newProjectForm.setAttribute('id', 'new-project-form');
+    newProjectFormDiv.appendChild(newProjectForm);
+
+    const newProjectFormLabel = document.createElement('label');
+    newProjectFormLabel.setAttribute('id', 'new-project-form-label');
+    newProjectFormLabel.setAttribute('for', 'new-project-form-input');
+    newProjectFormLabel.textContent = "New Project Name:";
+    newProjectForm.appendChild(newProjectFormLabel);
+
+    const newProjectFormInput = document.createElement('input');
+    newProjectFormInput.setAttribute('id', 'new-project-form-input');
+    newProjectFormInput.setAttribute('name', 'new-project-form-input');
+    newProjectFormInput.setAttribute('type', 'text');
+    newProjectForm.appendChild(newProjectFormInput);
+
+    const newProjectFormButtonsDiv = document.createElement('div');
+    newProjectFormButtonsDiv.setAttribute('id', 'new-project-form-buttons-div');
+    newProjectForm.appendChild(newProjectFormButtonsDiv);
+
+    const newProjectFormSubmitButton = document.createElement('button');
+    newProjectFormSubmitButton.setAttribute('type', 'button');
+    newProjectFormSubmitButton.textContent = "Submit";
+    newProjectFormButtonsDiv.appendChild(newProjectFormSubmitButton);
+    newProjectFormSubmitButton.addEventListener('click', () => {
+        createProject(newProjectFormInput.value);
+        buildUI(document.querySelector('#project-menu-list-select').value);
+        newProjectForm.reset();
+        newProjectFormDiv.setAttribute('style', 'display: none;');
+    });
+
+    const newProjectFormCancelButton = document.createElement('button');
+    newProjectFormCancelButton.setAttribute('type', 'button');
+    newProjectFormCancelButton.textContent = "Cancel";
+    newProjectFormButtonsDiv.appendChild(newProjectFormCancelButton);
+    newProjectFormCancelButton.addEventListener('click', () => {
+        newProjectForm.reset();
+        newProjectFormDiv.setAttribute('style', 'display: none;');
+    });
+
+    return newProjectFormDiv;
+}
 
 //****************************************************************************** */
 function buildNewTaskButton() {
