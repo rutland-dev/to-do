@@ -345,9 +345,72 @@ select option {
     background-color: rgba(255, 255, 255, .3);
 }
 
+.created-task-inner-div {
+    display: flex;
+    gap: 1rem;
+}
+
 .created-task-due-div {
     font-size: 1rem;
     ;
+}
+
+.created-task-details-div {
+    display: none;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 1rem;
+    background-color: rgba(255, 255, 255, .3);
+    padding: 1rem;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    font-weight: 600;
+    font-size: .9rem;
+}
+
+.created-task-details-div p {
+    font-weight: 400;
+    font-size: .8rem;
+}
+
+.created-task-description-div {
+    grid-area: 1 / 1 / 2 / 4;
+}
+
+.created-task-description-div p {
+    background-color: rgba(255, 255, 255, .3);
+    padding: .2rem;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+.created-task-project-div {
+    grid-area: 2 / 1 / 3 / 2;
+}
+
+.created-task-project-div p {
+    background-color: rgba(255, 255, 255, .3);
+    padding: .2rem;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+.created-task-priority-div {
+    grid-area: 3 / 1 / 4 / 2;
+}
+
+.created-task-priority-div p {
+    background-color: rgba(255, 255, 255, .3);
+    padding: .2rem;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+.created-task-notes-div {
+    grid-area: 2 / 2 / 4 / 4;
+}
+
+.created-task-notes-div p {
+    background-color: rgba(255, 255, 255, .3);
+    padding: .2rem;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    height: 80%;
 }
 
 input[type="checkbox"] {

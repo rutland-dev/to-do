@@ -422,6 +422,18 @@ function displayTasks(projectName) {
             document.querySelector('#task-view-div').remove();
             document.body.appendChild(buildTaskView(projectName));
         });
+
+        const createdTaskInnerDiv = document.createElement('div');
+        createdTaskInnerDiv.classList.add('created-task-inner-div');
+        createdTaskInnerDiv.addEventListener('click', () => {
+            const detailsDiv = document.querySelector(`#${task.name}-li + .created-task-details-div`);
+            if (detailsDiv.getAttribute('style') === "display: grid;") {
+                detailsDiv.setAttribute('style', 'display: none;');
+            } else {
+                detailsDiv.setAttribute('style', 'display: grid;');
+            }
+        });
+
         const label = document.createElement('label');
         label.setAttribute('id', `${task.name}-label`);
         label.textContent = task.name;
@@ -430,15 +442,63 @@ function displayTasks(projectName) {
         createdTaskDueDiv.classList.add('created-task-due-div');
         createdTaskDueDiv.textContent = `- ${task.formattedDue}`;
 
+        const createdTaskDetailsDiv = document.createElement('div');
+        createdTaskDetailsDiv.classList.add('created-task-details-div');
+
+        const createdTaskDescriptionDiv = document.createElement('div');
+        createdTaskDescriptionDiv.classList.add('created-task-description-div');
+        const createdTaskDescriptionSpan = document.createElement('span');
+        createdTaskDescriptionSpan.classList.add('created-task-description-span');
+        createdTaskDescriptionSpan.textContent = "Description:";
+        createdTaskDescriptionDiv.appendChild(createdTaskDescriptionSpan);
+        const createdTaskDescriptionContent = document.createElement('p');
+        createdTaskDescriptionContent.textContent = task.description;
+        createdTaskDescriptionSpan.appendChild(createdTaskDescriptionContent);
+        createdTaskDetailsDiv.appendChild(createdTaskDescriptionDiv);
+
+        const createdTaskProjectDiv = document.createElement('div');
+        createdTaskProjectDiv.classList.add('created-task-project-div');
+        const createdTaskProjectSpan = document.createElement('span');
+        createdTaskProjectSpan.textContent = "Project:";
+        createdTaskProjectDiv.appendChild(createdTaskProjectSpan);
+        const createdTaskProjectName = document.createElement('p');
+        createdTaskProjectName.textContent = task.project;
+        createdTaskProjectSpan.appendChild(createdTaskProjectName);
+        createdTaskDetailsDiv.appendChild(createdTaskProjectDiv);
+
+        const createdTaskPriorityDiv = document.createElement('div');
+        createdTaskPriorityDiv.classList.add('created-task-priority-div');
+        const createdTaskPrioritySpan = document.createElement('span');
+        createdTaskPrioritySpan.classList.add('created-task-priority-span');
+        createdTaskPrioritySpan.textContent = "Priority:";
+        createdTaskPriorityDiv.appendChild(createdTaskPrioritySpan);
+        const createdTaskPriorityContent = document.createElement('p');
+        createdTaskPriorityContent.textContent = task.priority;
+        createdTaskPrioritySpan.appendChild(createdTaskPriorityContent);
+        createdTaskDetailsDiv.appendChild(createdTaskPriorityDiv);
+
+        const createdTaskNotesDiv = document.createElement('div');
+        createdTaskNotesDiv.classList.add('created-task-notes-div');
+        const createdTaskNotesSpan = document.createElement('span');
+        createdTaskNotesSpan.classList.add('created-task-notes-span');
+        createdTaskNotesSpan.textContent = "Notes:";
+        createdTaskNotesDiv.appendChild(createdTaskNotesSpan);
+        const createdTaskNotesContent = document.createElement('p');
+        createdTaskNotesContent.textContent = task.notes;
+        createdTaskNotesSpan.appendChild(createdTaskNotesContent);
+        createdTaskDetailsDiv.appendChild(createdTaskNotesDiv);
+
         createdTask.appendChild(checkBox);
-        createdTask.appendChild(label);
-        createdTask.appendChild(createdTaskDueDiv);
+        createdTask.appendChild(createdTaskInnerDiv);
+        createdTaskInnerDiv.appendChild(label);
+        createdTaskInnerDiv.appendChild(createdTaskDueDiv);
 
         if (task.complete === true) {
             checkBox.setAttribute('checked', 'checked');
         }
         
         displayedTasksUL.appendChild(createdTask);
+        displayedTasksUL.appendChild(createdTaskDetailsDiv);
     });
 
     return displayedTasksDiv;
