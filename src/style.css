@@ -347,7 +347,10 @@ select option {
 
 .created-task-inner-div {
     display: flex;
+    align-items: center;
     gap: 1rem;
+    width: 100%;
+    height: 2rem;
 }
 
 .created-task-due-div {

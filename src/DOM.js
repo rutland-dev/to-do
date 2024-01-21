@@ -1,5 +1,5 @@
 import './style.css';
-import { projectList, buildDisplayedTaskList, changeTaskStatus } from './index.js';
+import { projectList, buildDisplayedTaskList, changeTaskStatus, createTask } from './index.js';
 
 //****************************************************************************** */
 function buildUI(projectName) {
@@ -52,7 +52,7 @@ function buildMenu() {
     const projectMenuDiv = buildProjectMenu();
     menuDiv.appendChild(projectMenuDiv);
     
-    const viewByDateDiv = buildViewByDateBtns();
+    const viewByDateDiv = buildViewByDateButtons();
     menuDiv.appendChild(viewByDateDiv);
 
     return menuDiv;
@@ -120,41 +120,41 @@ function buildNewButtons() {
     const createNewButtonsDiv = document.createElement('div');
     createNewButtonsDiv.setAttribute('id', 'create-new-buttons-div');
 
-    const createNewProjectBtn = buildNewProjectButton();
-    createNewButtonsDiv.appendChild(createNewProjectBtn);
+    const createNewProjectButton = buildNewProjectButton();
+    createNewButtonsDiv.appendChild(createNewProjectButton);
 
-    const createNewTaskBtn = buildNewTaskButton();
-    createNewButtonsDiv.appendChild(createNewTaskBtn);
+    const createNewTaskButton = buildNewTaskButton();
+    createNewButtonsDiv.appendChild(createNewTaskButton);
 
     return createNewButtonsDiv;
 };
 
 //****************************************************************************** */
 function buildNewProjectButton() {
-    const createNewProjectBtn = document.createElement('button');
-    createNewProjectBtn.setAttribute('type', 'button');
-    createNewProjectBtn.setAttribute('id', 'create-new-project-button');
-    createNewProjectBtn.textContent = "New Project";
+    const createNewProjectButton = document.createElement('button');
+    createNewProjectButton.setAttribute('type', 'button');
+    createNewProjectButton.setAttribute('id', 'create-new-project-button');
+    createNewProjectButton.textContent = "New Project";
 
-    return createNewProjectBtn;
+    return createNewProjectButton;
 };
 
 //****************************************************************************** */
 function buildNewTaskButton() {
-    const createNewTaskBtn = document.createElement('button');
-    createNewTaskBtn.setAttribute('type', 'button');
-    createNewTaskBtn.setAttribute('id', 'create-new-task-button');
-    createNewTaskBtn.textContent = "New Task";
-    createNewTaskBtn.addEventListener('click', () => {
+    const createNewTaskButton = document.createElement('button');
+    createNewTaskButton.setAttribute('type', 'button');
+    createNewTaskButton.setAttribute('id', 'create-new-task-button');
+    createNewTaskButton.textContent = "New Task";
+    createNewTaskButton.addEventListener('click', () => {
         document.querySelector('#new-task-form-div').setAttribute('style', 'display: flex;');
         document.querySelector('#new-task-form-name-input').focus();
     });
 
-    return createNewTaskBtn;
+    return createNewTaskButton;
 };
 
 //****************************************************************************** */
-function buildViewByDateBtns() {
+function buildViewByDateButtons() {
     const viewByDateDiv = document.createElement('div');
     viewByDateDiv.setAttribute('id', 'view-by-date-div');
 
@@ -163,24 +163,24 @@ function buildViewByDateBtns() {
     viewByDateText.textContent = "View By Due Date";
     viewByDateDiv.appendChild(viewByDateText);
 
-    const viewByDateBtnsDiv = document.createElement('div');
-    viewByDateBtnsDiv.setAttribute('id', 'view-by-date-buttons-div');
-    viewByDateDiv.appendChild(viewByDateBtnsDiv);
+    const viewByDateButtonsDiv = document.createElement('div');
+    viewByDateButtonsDiv.setAttribute('id', 'view-by-date-buttons-div');
+    viewByDateDiv.appendChild(viewByDateButtonsDiv);
 
-    const viewByDateBtnAll = document.createElement('button');
-    viewByDateBtnAll.setAttribute('id', 'view-by-date-button-all');
-    viewByDateBtnAll.textContent = "All";
-    viewByDateBtnsDiv.appendChild(viewByDateBtnAll);
+    const viewByDateButtonAll = document.createElement('button');
+    viewByDateButtonAll.setAttribute('id', 'view-by-date-button-all');
+    viewByDateButtonAll.textContent = "All";
+    viewByDateButtonsDiv.appendChild(viewByDateButtonAll);
 
-    const viewByDateBtnToday = document.createElement('button');
-    viewByDateBtnToday.setAttribute('id', 'view-by-date-button-today');
-    viewByDateBtnToday.textContent = "Today";
-    viewByDateBtnsDiv.appendChild(viewByDateBtnToday);
+    const viewByDateButtonToday = document.createElement('button');
+    viewByDateButtonToday.setAttribute('id', 'view-by-date-button-today');
+    viewByDateButtonToday.textContent = "Today";
+    viewByDateButtonsDiv.appendChild(viewByDateButtonToday);
 
-    const viewByDateBtnWeek = document.createElement('button');
-    viewByDateBtnWeek.setAttribute('id', 'view-by-date-button-week');
-    viewByDateBtnWeek.textContent = "7 Days";
-    viewByDateBtnsDiv.appendChild(viewByDateBtnWeek);
+    const viewByDateButtonWeek = document.createElement('button');
+    viewByDateButtonWeek.setAttribute('id', 'view-by-date-button-week');
+    viewByDateButtonWeek.textContent = "7 Days";
+    viewByDateButtonsDiv.appendChild(viewByDateButtonWeek);
 
     return viewByDateDiv;
 };
@@ -292,6 +292,7 @@ function buildNewTaskForm() {
     newTaskFormPriorityInputLow.setAttribute('type', 'radio');
     newTaskFormPriorityInputLow.setAttribute('name', 'new-task-form-priority-radio');
     newTaskFormPriorityInputLow.setAttribute('value', 'low');
+    newTaskFormPriorityInputLow.classList.add('priority-radio');
     const newTaskFormPriorityInputLowCustomRadio = document.createElement('span');
     newTaskFormPriorityInputLowCustomRadio.classList.add('checkmark');
     newTaskFormPriorityLabelLow.appendChild(newTaskFormPriorityInputLow);
@@ -312,6 +313,7 @@ function buildNewTaskForm() {
     newTaskFormPriorityInputMedium.setAttribute('type', 'radio');
     newTaskFormPriorityInputMedium.setAttribute('name', 'new-task-form-priority-radio');
     newTaskFormPriorityInputMedium.setAttribute('value', 'medium');
+    newTaskFormPriorityInputMedium.classList.add('priority-radio');
     const newTaskFormPriorityInputMediumCustomRadio = document.createElement('span');
     newTaskFormPriorityInputMediumCustomRadio.classList.add('checkmark');
     newTaskFormPriorityLabelMedium.appendChild(newTaskFormPriorityInputMedium);
@@ -332,6 +334,7 @@ function buildNewTaskForm() {
     newTaskFormPriorityInputHigh.setAttribute('type', 'radio');
     newTaskFormPriorityInputHigh.setAttribute('name', 'new-task-form-priority-radio');
     newTaskFormPriorityInputHigh.setAttribute('value', 'high');
+    newTaskFormPriorityInputHigh.classList.add('priority-radio');
     const newTaskFormPriorityInputHighCustomRadio = document.createElement('span');
     newTaskFormPriorityInputHighCustomRadio.classList.add('checkmark');
     newTaskFormPriorityLabelHigh.appendChild(newTaskFormPriorityInputHigh);
@@ -352,22 +355,44 @@ function buildNewTaskForm() {
     newTaskFormNotesInput.setAttribute('name', 'new-task-form-notes-input');
     newTaskFormNotesDiv.appendChild(newTaskFormNotesInput);
 
-    const newTaskFormBtnsDiv = document.createElement('div');
-    newTaskFormBtnsDiv.setAttribute('id', 'new-task-form-buttons-div');
-    newTaskForm.appendChild(newTaskFormBtnsDiv);
+    const newTaskFormButtonsDiv = document.createElement('div');
+    newTaskFormButtonsDiv.setAttribute('id', 'new-task-form-buttons-div');
+    newTaskForm.appendChild(newTaskFormButtonsDiv);
 
-    const newTaskFormSubmitBtn = document.createElement('button');
-    newTaskFormSubmitBtn.setAttribute('type', 'button');
-    newTaskFormSubmitBtn.setAttribute('id', 'new-task-form-submit-button');
-    newTaskFormSubmitBtn.textContent = "Submit";
-    newTaskFormBtnsDiv.appendChild(newTaskFormSubmitBtn);
+    const newTaskFormSubmitButton = document.createElement('button');
+    newTaskFormSubmitButton.setAttribute('type', 'button');
+    newTaskFormSubmitButton.setAttribute('id', 'new-task-form-submit-button');
+    newTaskFormSubmitButton.textContent = "Submit";
+    newTaskFormButtonsDiv.appendChild(newTaskFormSubmitButton);
+    newTaskFormSubmitButton.addEventListener('click', () => {
+        const checkedRadioList = document.querySelectorAll('.priority-radio');
+        let checkedRadio
+        checkedRadioList.forEach(radio => {
+            if (radio.checked) {
+                checkedRadio = radio;
+            }
+        });
+        console.log(newTaskFormDueInput.value);
+        createTask( 
+            newTaskFormNameInput.value,
+            newTaskFormDescriptionInput.value,
+            newTaskFormDueInput.value,
+            newTaskFormProjectInput.value,
+            checkedRadio.value,
+            newTaskFormNotesInput.value
+        );
+        buildUI(document.querySelector('#project-menu-list-select').value);
+        console.log(document.querySelector('#project-menu-list-select').value);
+        newTaskForm.reset();
+        newTaskFormDiv.setAttribute('style', 'display: none;');
+    });
 
-    const newTaskFormCancelBtn = document.createElement('button');
-    newTaskFormCancelBtn.setAttribute('type', 'button');
-    newTaskFormCancelBtn.setAttribute('id', 'new-task-form-cancel-button');
-    newTaskFormCancelBtn.textContent = "Cancel";
-    newTaskFormBtnsDiv.appendChild(newTaskFormCancelBtn);
-    newTaskFormCancelBtn.addEventListener('click', () => {
+    const newTaskFormCancelButton = document.createElement('button');
+    newTaskFormCancelButton.setAttribute('type', 'button');
+    newTaskFormCancelButton.setAttribute('id', 'new-task-form-cancel-button');
+    newTaskFormCancelButton.textContent = "Cancel";
+    newTaskFormButtonsDiv.appendChild(newTaskFormCancelButton);
+    newTaskFormCancelButton.addEventListener('click', () => {
         newTaskForm.reset();
         newTaskFormDiv.setAttribute('style', 'display: none;');
     });

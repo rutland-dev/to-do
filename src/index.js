@@ -1,6 +1,6 @@
 import './style.css';
 import { buildUI } from './DOM.js';
-const { differenceInCalendarDays, format } = require('date-fns');
+const { differenceInCalendarDays, format, parseISO } = require('date-fns');
 
 //****************************************************************************** */
 let taskList = [
@@ -68,13 +68,17 @@ let taskList = [
 
 function createTask(name, description, due, project, priority, notes) {
     const task = {};
+    const parsedDate = parseISO(due, 'yyyy, MM, dd', new Date());
     task.name = name;
     task.description = description;
-    task.due = due;
+    task.due = new Date(parsedDate);
+    task.formattedDue = format(parsedDate, "MM-dd-yyyy");
     task.project = project;
     task.priority = priority;
     task.notes = notes;
     task.complete = false;
+
+    console.log(format(parsedDate, "MM-dd-yyyy"));
 
     taskList.push(task);
 };
@@ -151,6 +155,7 @@ function changeTaskStatus(task) {
 export {
     projectList,
     buildDisplayedTaskList,
-    changeTaskStatus
+    changeTaskStatus,
+    createTask
 }
 //***********LOOK INTO CSS MINIFYING WHEN YOU'RE DONE */
