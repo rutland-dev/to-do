@@ -1,5 +1,5 @@
 import './style.css';
-import { projectList, buildDisplayedTaskList, changeTaskStatus, createTask, createProject, getTaskListByDate } from './index.js';
+import { projectList, buildDisplayedTaskList, changeTaskStatus, createTask, createProject, getTaskListByDate, removeTask } from './index.js';
 
 //****************************************************************************** */
 function buildUI(projectName, viewType) {
@@ -532,7 +532,7 @@ function displayTasks() {
 
         const createdTaskDueDiv = document.createElement('div');
         createdTaskDueDiv.classList.add('created-task-due-div');
-        createdTaskDueDiv.textContent = `- ${task.formattedDue}`;
+        createdTaskDueDiv.textContent = `(${task.formattedDue})`;
 
         const createdTaskDetailsDiv = document.createElement('div');
         createdTaskDetailsDiv.classList.add('created-task-details-div');
@@ -579,6 +579,16 @@ function displayTasks() {
         createdTaskNotesContent.textContent = task.notes;
         createdTaskNotesSpan.appendChild(createdTaskNotesContent);
         createdTaskDetailsDiv.appendChild(createdTaskNotesDiv);
+
+        const removeTaskButton = document.createElement('button');
+        removeTaskButton.classList.add('remove-task-button');
+        removeTaskButton.textContent = "Remove Task";
+        createdTaskDetailsDiv.appendChild(removeTaskButton);
+        removeTaskButton.addEventListener('click', () => {
+            removeTask(task.name);
+            buildUI(document.querySelector('#project-menu-list-select'), document.querySelector('#view-by-date-select'));
+        });
+
 
         createdTask.appendChild(checkBox);
         createdTask.appendChild(createdTaskInnerDiv);

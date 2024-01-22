@@ -361,7 +361,7 @@ select option {
 .created-task-details-div {
     display: none;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
     gap: 1rem;
     background-color: rgba(255, 255, 255, .3);
     padding: 1rem;
@@ -399,10 +399,15 @@ select option {
     grid-area: 3 / 1 / 4 / 2;
 }
 
-.created-task-priority-div p {
+.created-task-priority-div p, .remove-task-button {
     background-color: rgba(255, 255, 255, .3);
     padding: .2rem;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+.remove-task-button {
+    grid-area: 4 / 2 / 5 / 3;
+    font-weight: 600;
 }
 
 .created-task-notes-div {

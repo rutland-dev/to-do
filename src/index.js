@@ -3,69 +3,20 @@ import { buildUI } from './DOM.js';
 const { differenceInCalendarDays, format, parseISO } = require('date-fns');
 
 //****************************************************************************** */
-let taskList = [
-    {
-        name: "Beer",
-        description: "Buy this at the store",
-        due: new Date(2024, 0, 21),
-        formattedDue: format(new Date(2024, 0, 21), "MM-dd-yyyy"),
-        project: "Booze",
-        priority: "low",
-        notes: "Write notes here...",
-        complete: false,
-    },
-    {
-        name: "Cider",
-        description: "Buy this at the store",
-        due: new Date(2024, 0, 25),
-        formattedDue: format(new Date(2024, 0, 25), "MM-dd-yyyy"),
-        project: "Booze",
-        priority: "low",
-        notes: "Write notes here...",
-        complete: false,
-    },
-    {
-        name: "Whiskey",
-        description: "Buy this at the store",
-        due: new Date(2024, 0, 21),
-        formattedDue: format(new Date(2024, 0, 21), "MM-dd-yyyy"),
-        project: "Booze",
-        priority: "medium",
-        notes: "Write notes here...",
-        complete: false,
-    },
-    {
-        name: "Bread",
-        description: "Buy this at the store",
-        due: new Date(2024, 1, 1),
-        formattedDue: format(new Date(2024, 1, 1), "MM-dd-yyyy"),
-        project: "Groceries",
-        priority: "low",
-        notes: "Write notes here...",
-        complete: false,
-    },
-    {
-        name: "Milk",
-        description: "Buy this at the store",
-        due: new Date(2024, 0, 23),
-        formattedDue: format(new Date(2024, 0, 23), "MM-dd-yyyy"),
-        project: "Groceries",
-        priority: "medium",
-        notes: "Write notes here...",
-        complete: true,
-    },
-    {
-        name: "Cheese",
-        description: "Buy this at the store",
-        due: new Date(2024, 2, 1),
-        formattedDue: format(new Date(2024, 1, 1), "MM-dd-yyyy"),
-        project: "Groceries",
-        priority: "high",
-        notes: "Write notes here...",
-        complete: false,
-    },
-];
+let taskList = [];
 let displayedTaskList = [];
+let projectList = ["Default"];
+
+//****************************************************************************** */
+if (!localStorage.getItem("taskList")) {
+    taskList = [];
+} else {
+    retrieveTaskList();
+};
+
+function retrieveTaskList() {
+    taskList = JSON.parse(localStorage.getItem("taskList"));
+}
 
 //****************************************************************************** */
 function createTask(name, description, due, project, priority, notes) {
@@ -80,10 +31,20 @@ function createTask(name, description, due, project, priority, notes) {
     task.notes = notes;
     task.complete = false;
 
-    console.log(format(parsedDate, "MM-dd-yyyy"));
-
     taskList.push(task);
+
+    localStorage.setItem("taskList", JSON.stringify(taskList));
 };
+
+function removeTask(removedTask) {
+    let i = 0;
+    taskList.forEach(task => {
+        if (task.name === removedTask) {
+            taskList.splice(i, 1);
+        }
+        i++;
+    });
+}
 
 //****************************************************************************** */
 function getComparedDate(dueDate) {
@@ -116,9 +77,6 @@ function getCurrentDate() {
 
     return formattedDate;
 };
-
-//****************************************************************************** */
-let projectList = ["Default"];
 
 //****************************************************************************** */
 function createProject(projectName) {
@@ -193,6 +151,7 @@ export {
     changeTaskStatus,
     createTask,
     createProject,
-    getTaskListByDate
+    getTaskListByDate,
+    removeTask
 }
 //***********LOOK INTO CSS MINIFYING WHEN YOU'RE DONE */
