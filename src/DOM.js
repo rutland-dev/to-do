@@ -1,8 +1,8 @@
 import './style.css';
-import { projectList, buildDisplayedTaskList, changeTaskStatus, createTask, createProject } from './index.js';
+import { projectList, buildDisplayedTaskList, changeTaskStatus, createTask, createProject, getTaskListByDate } from './index.js';
 
 //****************************************************************************** */
-function buildUI(projectName) {
+function buildUI(projectName, viewType) {
     clearBody();
 
     const headerDiv = buildHeader();
@@ -90,7 +90,7 @@ function buildProjectList() {
     projectMenuListSelect.setAttribute('name', 'project-menu-list-select');
     projectMenuListSelect.addEventListener('change', () => {
         document.querySelector('#task-view-div').remove();
-        const taskViewDiv = buildTaskView(projectMenuListSelect.value);
+        const taskViewDiv = buildTaskView();
         document.body.appendChild(taskViewDiv);
     });
 
@@ -166,6 +166,12 @@ function buildNewProjectForm() {
     newProjectFormInput.setAttribute('name', 'new-project-form-input');
     newProjectFormInput.setAttribute('type', 'text');
     newProjectForm.appendChild(newProjectFormInput);
+    newProjectFormInput.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            newProjectFormSubmitButton.click();
+        }
+    });
 
     const newProjectFormButtonsDiv = document.createElement('div');
     newProjectFormButtonsDiv.setAttribute('id', 'new-project-form-buttons-div');
@@ -175,9 +181,10 @@ function buildNewProjectForm() {
     newProjectFormSubmitButton.setAttribute('type', 'button');
     newProjectFormSubmitButton.textContent = "Submit";
     newProjectFormButtonsDiv.appendChild(newProjectFormSubmitButton);
-    newProjectFormSubmitButton.addEventListener('click', () => {
+    newProjectFormSubmitButton.addEventListener('click', (event) => {
+        event.preventDefault()
         createProject(newProjectFormInput.value);
-        buildUI(document.querySelector('#project-menu-list-select').value);
+        buildUI(document.querySelector('#project-menu-list-select').value, "none");
         newProjectForm.reset();
         newProjectFormDiv.setAttribute('style', 'display: none;');
     });
@@ -213,29 +220,29 @@ function buildViewByDateButtons() {
     const viewByDateDiv = document.createElement('div');
     viewByDateDiv.setAttribute('id', 'view-by-date-div');
 
-    const viewByDateText = document.createElement('p');
-    viewByDateText.setAttribute('id', 'view-by-date-buttons-text');
-    viewByDateText.textContent = "View By Due Date";
-    viewByDateDiv.appendChild(viewByDateText);
+    const viewByDateSelect = document.createElement('select');
+    viewByDateSelect.setAttribute('id', 'view-by-date-select');
+    viewByDateDiv.appendChild(viewByDateSelect);
+    viewByDateSelect.addEventListener('change', () => {
+        document.querySelector('#task-view-div').remove();
+        const taskViewDiv = buildTaskView();
+        document.body.appendChild(taskViewDiv);
+    });
 
-    const viewByDateButtonsDiv = document.createElement('div');
-    viewByDateButtonsDiv.setAttribute('id', 'view-by-date-buttons-div');
-    viewByDateDiv.appendChild(viewByDateButtonsDiv);
+    const viewByDateOptionAll = document.createElement('option');
+    viewByDateOptionAll.setAttribute('value', 'all');
+    viewByDateOptionAll.textContent = "All";
+    viewByDateSelect.appendChild(viewByDateOptionAll);
 
-    const viewByDateButtonAll = document.createElement('button');
-    viewByDateButtonAll.setAttribute('id', 'view-by-date-button-all');
-    viewByDateButtonAll.textContent = "All";
-    viewByDateButtonsDiv.appendChild(viewByDateButtonAll);
+    const viewByDateOptionDay = document.createElement('option');
+    viewByDateOptionDay.setAttribute('value', 'day');
+    viewByDateOptionDay.textContent = "Today";
+    viewByDateSelect.appendChild(viewByDateOptionDay);
 
-    const viewByDateButtonToday = document.createElement('button');
-    viewByDateButtonToday.setAttribute('id', 'view-by-date-button-today');
-    viewByDateButtonToday.textContent = "Today";
-    viewByDateButtonsDiv.appendChild(viewByDateButtonToday);
-
-    const viewByDateButtonWeek = document.createElement('button');
-    viewByDateButtonWeek.setAttribute('id', 'view-by-date-button-week');
-    viewByDateButtonWeek.textContent = "7 Days";
-    viewByDateButtonsDiv.appendChild(viewByDateButtonWeek);
+    const viewByDateOptionWeek = document.createElement('option');
+    viewByDateOptionWeek.setAttribute('value', 'week');
+    viewByDateOptionWeek.textContent = "7 Days";
+    viewByDateSelect.appendChild(viewByDateOptionWeek);
 
     return viewByDateDiv;
 };
@@ -409,6 +416,12 @@ function buildNewTaskForm() {
     newTaskFormNotesInput.setAttribute('id', 'new-task-form-notes-input');
     newTaskFormNotesInput.setAttribute('name', 'new-task-form-notes-input');
     newTaskFormNotesDiv.appendChild(newTaskFormNotesInput);
+    newTaskFormNotesInput.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            newTaskFormSubmitButton.click();
+        }
+    });
 
     const newTaskFormButtonsDiv = document.createElement('div');
     newTaskFormButtonsDiv.setAttribute('id', 'new-task-form-buttons-div');
@@ -419,7 +432,8 @@ function buildNewTaskForm() {
     newTaskFormSubmitButton.setAttribute('id', 'new-task-form-submit-button');
     newTaskFormSubmitButton.textContent = "Submit";
     newTaskFormButtonsDiv.appendChild(newTaskFormSubmitButton);
-    newTaskFormSubmitButton.addEventListener('click', () => {
+    newTaskFormSubmitButton.addEventListener('click', (event) => {
+        event.preventDefault();
         const checkedRadioList = document.querySelectorAll('.priority-radio');
         let checkedRadio
         checkedRadioList.forEach(radio => {
@@ -476,7 +490,7 @@ function buildTaskView(projectName) {
 }
 
 //****************************************************************************** */
-function displayTasks(projectName) {
+function displayTasks() {
     const displayedTasksDiv = document.createElement('div');
     displayedTasksDiv.setAttribute('id', 'displayed-task-div');
 
@@ -484,14 +498,11 @@ function displayTasks(projectName) {
     displayedTasksUL.setAttribute('id', 'displayed-tasks-ul');
     displayedTasksDiv.appendChild(displayedTasksUL);
 
-    const displayedTaskList = getDisplayedTaskList(projectName);
+    const displayedTaskList = getDisplayedTaskList();
     displayedTaskList.forEach(task => {
         const createdTask = document.createElement('li');
         createdTask.setAttribute('id', `${task.name}-li`);
         createdTask.classList.add('task');
-        createdTask.addEventListener('click', () => {
-            expandTask(task);
-        });
 
         const checkBox = document.createElement('input');
         checkBox.type = "checkbox";
@@ -500,7 +511,7 @@ function displayTasks(projectName) {
         checkBox.addEventListener('click', () => {
             changeTaskStatus(task.name)
             document.querySelector('#task-view-div').remove();
-            document.body.appendChild(buildTaskView(projectName));
+            document.body.appendChild(buildTaskView());
         });
 
         const createdTaskInnerDiv = document.createElement('div');
@@ -585,14 +596,12 @@ function displayTasks(projectName) {
 };
 
 //****************************************************************************** */
-function getDisplayedTaskList(projectName) {
-    const displayedTaskList = buildDisplayedTaskList(projectName);
+function getDisplayedTaskList() {
+    const projectName = document.querySelector('#project-menu-list-select').value;
+    const viewByDate = document.querySelector('#view-by-date-select').value;
+    const displayedTaskList = buildDisplayedTaskList(projectName, viewByDate);
 
     return displayedTaskList;
-}
-
-function expandTask(task) {
-    
 }
 
 //****************************************************************************** */

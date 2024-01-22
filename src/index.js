@@ -7,8 +7,8 @@ let taskList = [
     {
         name: "Beer",
         description: "Buy this at the store",
-        due: new Date(2024, 0, 20),
-        formattedDue: format(new Date(2024, 0, 23), "MM-dd-yyyy"),
+        due: new Date(2024, 0, 21),
+        formattedDue: format(new Date(2024, 0, 21), "MM-dd-yyyy"),
         project: "Booze",
         priority: "low",
         notes: "Write notes here...",
@@ -17,8 +17,8 @@ let taskList = [
     {
         name: "Cider",
         description: "Buy this at the store",
-        due: new Date(2024, 1, 1),
-        formattedDue: format(new Date(2024, 1, 1), "MM-dd-yyyy"),
+        due: new Date(2024, 0, 25),
+        formattedDue: format(new Date(2024, 0, 25), "MM-dd-yyyy"),
         project: "Booze",
         priority: "low",
         notes: "Write notes here...",
@@ -27,7 +27,7 @@ let taskList = [
     {
         name: "Whiskey",
         description: "Buy this at the store",
-        due: new Date(2024-0-17),
+        due: new Date(2024, 0, 21),
         formattedDue: format(new Date(2024, 0, 21), "MM-dd-yyyy"),
         project: "Booze",
         priority: "medium",
@@ -37,8 +37,8 @@ let taskList = [
     {
         name: "Bread",
         description: "Buy this at the store",
-        due: new Date(2024-1-1),
-        formattedDue: format(new Date(2024, 0, 21), "MM-dd-yyyy"),
+        due: new Date(2024, 1, 1),
+        formattedDue: format(new Date(2024, 1, 1), "MM-dd-yyyy"),
         project: "Groceries",
         priority: "low",
         notes: "Write notes here...",
@@ -47,8 +47,8 @@ let taskList = [
     {
         name: "Milk",
         description: "Buy this at the store",
-        due: new Date(2024-0-17),
-        formattedDue: format(new Date(2024, 0, 21), "MM-dd-yyyy"),
+        due: new Date(2024, 0, 23),
+        formattedDue: format(new Date(2024, 0, 23), "MM-dd-yyyy"),
         project: "Groceries",
         priority: "medium",
         notes: "Write notes here...",
@@ -57,7 +57,7 @@ let taskList = [
     {
         name: "Cheese",
         description: "Buy this at the store",
-        due: new Date(2024-1-1),
+        due: new Date(2024, 2, 1),
         formattedDue: format(new Date(2024, 1, 1), "MM-dd-yyyy"),
         project: "Groceries",
         priority: "high",
@@ -65,6 +65,7 @@ let taskList = [
         complete: false,
     },
 ];
+let displayedTaskList = [];
 
 //****************************************************************************** */
 function createTask(name, description, due, project, priority, notes) {
@@ -94,11 +95,22 @@ function getComparedDate(dueDate) {
     return result;
 };
 
+function getTaskListByDate(viewByDate) {
+    taskList.forEach(task => {
+        const comparedDate = getComparedDate(task.due);
+        if (comparedDate < viewByDate) {
+            displayedTaskList.push(task);
+        }
+
+        return displayedTaskList;
+    });
+}
+
 //****************************************************************************** */
 function getCurrentDate() {
     const today = new Date();
     const day = today.getDate();
-    const month = today.getMonth() + 1;
+    const month = today.getMonth();
     const year = today.getFullYear();
     const formattedDate = new Date(year, month, day);
 
@@ -121,6 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 //****************************************************************************** */
 function buildProjectList() {
+    displayedTaskList = [];
     taskList.forEach(task => {
         if (!projectList.includes(task.project)) {
             projectList.push(task.project);
@@ -129,17 +142,33 @@ function buildProjectList() {
 };
 
 //****************************************************************************** */
-function buildDisplayedTaskList(displayedProject) {
-    let displayedTaskList = [];
+function buildDisplayedTaskList(projectName, viewByDate) {
+    displayedTaskList = []
+    let buildingTaskList = [];
     taskList.forEach(task => {
-        if (displayedProject === "All") {
+        const comparedDate = getComparedDate(task.due);
+        if (viewByDate === "day") {
+            if (comparedDate < 1) {
+                buildingTaskList.push(task);
+            }
+        } else if (viewByDate === 'week') {
+            if (comparedDate < 8) {
+                buildingTaskList.push(task);
+            }
+        } else {
+            buildingTaskList.push(task);
+        }
+    });
+
+    buildingTaskList.forEach(task => {
+        if (projectName === "All") {
             displayedTaskList.push(task);
         } else {
-            if (task.project === displayedProject) {
+            if (task.project === projectName) {
                 displayedTaskList.push(task);
             }
         }
-    });
+    })
 
     return displayedTaskList;
 };
@@ -163,6 +192,7 @@ export {
     buildDisplayedTaskList,
     changeTaskStatus,
     createTask,
-    createProject
+    createProject,
+    getTaskListByDate
 }
 //***********LOOK INTO CSS MINIFYING WHEN YOU'RE DONE */
