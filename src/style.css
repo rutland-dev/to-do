@@ -549,16 +549,3 @@ input[type="checkbox"]:checked::before {
         width: 10%;
     }
 }
-
-/* @media only screen and (min-width: 1920px) {
-    #menu-div {
-        width: 320px;
-    }
-} */
-
-/* @media only screen and (min-width: 2460px) {
-    #menu-div {
-        width: 16.7%;
-        margin-top: 8%;
-    }
-} */
