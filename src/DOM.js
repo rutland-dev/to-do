@@ -502,13 +502,13 @@ function displayTasks() {
     const displayedTaskList = getDisplayedTaskList();
     displayedTaskList.forEach(task => {
         const createdTask = document.createElement('li');
-        createdTask.setAttribute('id', `${task.name}-li`);
+        createdTask.setAttribute('id', task.id);
         createdTask.classList.add('task');
 
         const checkBox = document.createElement('input');
         checkBox.type = "checkbox";
         checkBox.value = task.name;
-        checkBox.setAttribute('id', `${task.name}-input`)
+        checkBox.setAttribute('id', task.id)
         checkBox.addEventListener('click', () => {
             changeTaskStatus(task.name)
             document.querySelector('#task-view-div').remove();
@@ -518,7 +518,7 @@ function displayTasks() {
         const createdTaskInnerDiv = document.createElement('div');
         createdTaskInnerDiv.classList.add('created-task-inner-div');
         createdTaskInnerDiv.addEventListener('click', () => {
-            const detailsDiv = document.querySelector(`#${task.name}-li + .created-task-details-div`);
+            const detailsDiv = document.querySelector(`#${task.id} + .created-task-details-div`);
             if (detailsDiv.getAttribute('style') === "display: grid;") {
                 detailsDiv.setAttribute('style', 'display: none;');
             } else {
@@ -536,6 +536,7 @@ function displayTasks() {
 
         const createdTaskDetailsDiv = document.createElement('div');
         createdTaskDetailsDiv.classList.add('created-task-details-div');
+        createdTaskDetailsDiv.setAttribute('style', 'display: none;');
 
         const createdTaskDescriptionDiv = document.createElement('div');
         createdTaskDescriptionDiv.classList.add('created-task-description-div');

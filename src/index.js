@@ -23,9 +23,10 @@ function createTask(name, description, due, project, priority, notes) {
     const task = {};
     const parsedDate = parseISO(due, 'yyyy, MM, dd', new Date());
     task.name = name;
+    task.id = `${name.replace(/\s+/g, '')}`;
     task.description = description;
     task.due = new Date(parsedDate);
-    task.formattedDue = format(parsedDate, "MM-dd-yyyy");
+    task.formattedDue = format(parsedDate, "M-d-yy");
     task.project = project;
     task.priority = priority;
     task.notes = notes;
@@ -142,6 +143,7 @@ function changeTaskStatus(task) {
             }
         }
     });
+    localStorage.setItem("taskList", JSON.stringify(taskList));
 };
 
 //****************************************************************************** */
