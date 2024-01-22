@@ -218,6 +218,7 @@ function buildNewTaskButton() {
 //****************************************************************************** */
 function buildViewByDateButtons() {
     const viewByDateDiv = document.createElement('div');
+    viewByDateDiv.textContent = "View By Date";
     viewByDateDiv.setAttribute('id', 'view-by-date-div');
 
     const viewByDateSelect = document.createElement('select');
